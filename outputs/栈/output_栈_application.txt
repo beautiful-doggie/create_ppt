@@ -1,0 +1,167 @@
+> 栈是一种先进先出(FILO, first in last out)的数据结构，在生活中常见的例子有：
+>
+> - 十进制转换为二进制；
+> - 括号匹配问题；
+> - 函数调用栈；
+
+## 栈的应用场景
+
+### 十进制转换为二进制
+
+十进制转换为二进制的方法是，将十进制数不断除以二，直到商为零，然后从底到上依次取余数，即可得到二进制数。
+
+```js
+function dec2bin(decNumber) {
+  const stack = [];
+  while (decNumber > 0) {
+    stack.push(decNumber % 2);
+    decNumber = Math.floor(decNumber / 2);
+  }
+  return stack.reverse().join('');
+}
+
+dec2bin(10); // '1010'
+dec2bin(100); // '1100100'
+```
+
+### 括号匹配问题
+
+例如：
+
+```
+{{([])}}
+
+[()]{}
+```
+
+匹配成功，例如：
+
+```
+{(})
+```
+
+匹配失败，可以通过栈来实现。
+
+```js
+function isValid(s) {
+  const stack = [];
+  const pairs = new Map([
+    ['}', '{'],
+    [')', '('],
+    [']', '['],
+  ]);
+  for (let c of s) {
+    if (pairs.has(c)) {
+      if (!stack.length || stack[stack.length - 1] !== pairs.get(c)) {
+        return false;
+      }
+      stack.pop();
+    } else {
+      stack.push(c);
+    }
+  }
+  return !stack.length;
+}
+```
+
+### 函数调用栈
+
+函数调用栈用于追踪程序执行路径。每当进入一个函数时，它的返回地址和参数会被压入栈中。当函数返回时，栈顶的地址会被弹出，控制权会转移到该地址。
+
+```js
+function foo(b) {
+  let a = 10;
+  return a + b + 11;
+}
+
+function bar(x) {
+  const y = foo(x * 2);
+  return y * 3;
+}
+
+bar(1); // 63
+```
+
+上述代码中，bar 函数的返回地址和参数都被压入栈中，当 bar 函数返回时，栈顶的地址会被弹出，控制权会转移到该地址。
+
+## 栈的实现
+
+### 基于数组的栈
+
+```js
+class Stack {
+  constructor() {
+    this.stack = [];
+  }
+
+  push(element) {
+    this.stack.push(element);
+  }
+
+  pop() {
+    return this.stack.pop();
+  }
+
+  peek() {
+    return this.stack[this.stack.length - 1];
+  }
+
+  isEmpty() {
+    return this.stack.length === 0;
+  }
+
+  size() {
+    return this.stack.length;
+  }
+}
+```
+
+### 基于链表的栈
+
+```js
+class Node {
+  constructor(element) {
+    this.element = element;
+    this.next = null;
+  }
+}
+
+class Stack {
+  constructor() {
+    this.top = null;
+    this.size = 0;
+  }
+
+  push(element) {
+    const node = new Node(element);
+    node.next = this.top;
+    this.top = node;
+    this.size++;
+  }
+
+  pop() {
+    if (this.isEmpty()) {
+      return null;
+    }
+    const element = this.top.element;
+    this.top = this.top.next;
+    this.size--;
+    return element;
+  }
+
+  peek() {
+    if (this.isEmpty()) {
+      return null;
+    }
+    return this.top.element;
+  }
+
+  isEmpty() {
+    return this.size === 0;
+  }
+
+  getSize() {
+    return this.size;
+  }
+}
+```

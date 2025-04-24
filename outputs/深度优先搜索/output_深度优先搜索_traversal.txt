@@ -1,0 +1,44 @@
+## 深度优先搜索
+
+深度优先搜索（Depth-First-Search）算法又称作「深度优先遍历」，从根节点开始，沿着树的深度遍历树的节点。如果所有节点均被访问，则算法中止。
+
+### 深度优先搜索的遍历方式
+
+- 前序遍历：根节点 -> 左节点 -> 右节点
+- 中序遍历：左节点 -> 根节点 -> 右节点
+- 后序遍历：左节点 -> 右节点 -> 根节点
+
+### 深度优先搜索伪代码描述
+
+#### 前序遍历
+
+```js
+DFS(root) {
+    if (root == null) return;
+    visit(root);
+    DFS(root.left);
+    DFS(root.right);
+}
+```
+
+#### 中序遍历
+
+```js
+DFS(root) {
+    if (root == null) return;
+    DFS(root.left);
+    visit(root);
+    DFS(root.right);
+}
+```
+
+#### 后序遍历
+
+```js
+DFS(root) {
+    if (root == null) return;
+    DFS(root.left);
+    DFS(root.right);
+    visit(root);
+}
+```

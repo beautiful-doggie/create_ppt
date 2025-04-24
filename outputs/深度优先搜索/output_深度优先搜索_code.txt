@@ -1,0 +1,215 @@
+图的遍历：
+深度优先搜索（DFS）是图论中的一种搜索算法。
+它的基本思想是：从图中某个顶点出发，沿着路径深入到图的深处，直到路径上出现死胡同为止，然后再退回分叉路口，另选一条路径，继续深入，直到遍历完整个图。
+DFS 在遍历时，首先把初始点放入栈中，然后从栈顶开始，依次把它的所有未被访问的邻接点放入栈中，直到栈为空。
+
+# 图的遍历
+
+图的遍历就是对图中所有顶点进行访问，从而达到对图的访问目的。
+
+## 图的遍历的基本操作
+
+- 添加顶点（Vertex）：添加一个顶点
+- 删除顶点（Vertex）：删除一个顶点
+- 添加边（Edge）：添加一条边
+- 删除边（Edge）：删除一条边
+- 获得邻接点（Adjacent）：获得某个顶点的所有邻接点
+- 获得顶点数（Vertex）：获得图的顶点数
+- 获得边数（Edge）：获得图的边数
+- 清空（Clear）：清空图
+- 获得邻接矩阵（Adjacency Matrix）：获得图的邻接矩阵
+- 获得邻接表（Adjacency List）：获得图的邻接表
+- 深度优先遍历（Depth First Traversal）：深度优先遍历
+- 广度优先遍历（Breadth First Traversal）：广度优先遍历
+
+## 图的遍历的基本操作实现
+
+### 1. 添加顶点（Vertex）
+
+```python
+def add_vertex(self, v):
+    if v in self.vertices:
+        raise ValueError("Vertex {} already exists".format(v))
+    else:
+        self.vertices.add(v)
+        for row in self.adjacency_matrix:
+            row.append(0)
+        self.adjacency_matrix.append([0] * (len(self.vertices) + 1))
+        self.adjacency_matrix[v][v] = 1
+```
+
+### 2. 删除顶点（Vertex）
+
+```python
+def remove_vertex(self, v):
+    if v not in self.vertices:
+        raise ValueError("Vertex {} does not exist".format(v))
+    else:
+        self.vertices.remove(v)
+        self.adjacency_matrix.pop(v)
+        for row in self.adjacency_matrix:
+            row.pop(v)
+```
+
+### 3. 添加边（Edge）
+
+```python
+def add_edge(self, v1, v2, weight=1):
+    if v1 not in self.vertices:
+        raise ValueError("Vertex {} does not exist".format(v1))
+    elif v2 not in self.vertices:
+        raise ValueError("Vertex {} does not exist".format(v2))
+    else:
+        self.adjacency_matrix[v1][v2] = weight
+        self.adjacency_matrix[v2][v1] = weight
+```
+
+### 4. 删除边（Edge）
+
+```python
+def remove_edge(self, v1, v2):
+    if v1 not in self.vertices:
+        raise ValueError("Vertex {} does not exist".format(v1))
+    elif v2 not in self.vertices:
+        raise ValueError("Vertex {} does not exist".format(v2))
+    else:
+        self.adjacency_matrix[v1][v2] = 0
+        self.adjacency_matrix[v2][v1] = 0
+```
+
+### 5. 获得邻接点（Adjacent）
+
+```python
+def get_adjacent_vertices(self, v):
+    if v not in self.vertices:
+        raise ValueError("Vertex {} does not exist".format(v))
+    else:
+        adjacent_vertices = []
+        for i in range(len(self.vertices)):
+            if self.adjacency_matrix[v][i] > 0:
+                adjacent_vertices.append(i)
+        return adjacent_vertices
+```
+
+### 6. 获得顶点数（Vertex）
+
+```python
+def get_vertices(self):
+    return self.vertices
+```
+
+### 7. 获得边数（Edge）
+
+```python
+def get_edges(self):
+    edges = []
+    for i in range(len(self.vertices)):
+        for j in range(i+1, len(self.vertices)):
+            if self.adjacency_matrix[i][j] > 0:
+                edges.append((i, j))
+    return edges
+```
+
+### 8. 清空（Clear）
+
+```python
+def clear(self):
+    self.vertices = set()
+    self.adjacency_matrix = []
+```
+
+### 9. 获得邻接矩阵（Adjacency Matrix）
+
+```python
+def get_adjacency_matrix(self):
+    return self.adjacency_matrix
+```
+
+### 10. 获得邻接表（Adjacency List）
+
+```python
+def get_adjacency_list(self):
+    adjacency_list = {}
+    for i in range(len(self.vertices)):
+        adjacency_list[i] = []
+        for j in range(len(self.vertices)):
+            if self.adjacency_matrix[i][j] > 0:
+                adjacency_list[i].append(j)
+    return adjacency_list
+```
+
+### 11. 深度优先遍历（Depth First Traversal）
+
+```python
+def depth_first_traversal(self, start_vertex):
+    visited = set()
+    self._depth_first_traversal(start_vertex, visited)
+
+def _depth_first_traversal(self, vertex, visited):
+    visited.add(vertex)
+    print(vertex)
+    for v in self.get_adjacent_vertices(vertex):
+        if v not in visited:
+            self._depth_first_traversal(v, visited)
+```
+
+### 12. 广度优先遍历（Breadth First Traversal）
+
+```python
+def breadth_first_traversal(self, start_vertex):
+    visited = set()
+    queue = [start_vertex]
+    visited.add(start_vertex)
+    while queue:
+        vertex = queue.pop(0)
+        print(vertex)
+        for v in self.get_adjacent_vertices(vertex):
+            if v not in visited:
+                queue.append(v)
+                visited.add(v)
+```
+
+## 图的遍历的基本操作示例
+
+```python
+# 创建一个图
+graph = Graph()
+
+# 添加顶点
+graph.add_vertex(0)
+graph.add_vertex(1)
+graph.add_vertex(2)
+graph.add_vertex(3)
+
+# 添加边
+graph.add_edge(0, 1)
+graph.add_edge(0, 2)
+graph.add_edge(1, 2)
+graph.add_edge(2, 3)
+
+# 获得邻接点
+print(graph.get_adjacent_vertices(0))
+print(graph.get_adjacent_vertices(1))
+print(graph.get_adjacent_vertices(2))
+print(graph.get_adjacent_vertices(3))
+
+# 获得顶点数
+print(graph.get_vertices())
+
+# 获得边数
+print(graph.get_edges())
+
+# 清空图
+graph.clear()
+
+# 获得邻接矩阵
+print(graph.get_adjacency_matrix())
+
+# 获得邻接表
+print(graph.get_adjacency_list())
+
+# 深度优先遍历
+graph.add_vertex(0)
+graph.add_vertex(1)
+graph.add_vertex(2)
+graph.add_vertex(3)

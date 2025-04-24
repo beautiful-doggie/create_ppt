@@ -1,0 +1,128 @@
+### 概念
+
+**深度优先搜索**（Depth-First Search）
+
+- 是一种用于遍历或搜索树或图的算法。
+- 沿着树的深度遍历树的节点，尽可能深的搜索树的分支。
+- 如果节点v的所有边都己被探查过，搜索将回溯到发现节点v的那条边的节点。
+
+### 应用场景
+
+#### 1、找出所有路径
+
+![2021-05-25_153349](https://raw.githubusercontent.com/Sono-J/images-bed/main/blog/2021-05-25_153349.png)
+
+#### 2、找出所有路径的总和等于目标值的路径
+
+![2021-05-25_153356](https://raw.githubusercontent.com/Sono-J/images-bed/main/blog/2021-05-25_153356.png)
+
+#### 3、找出所有满足条件的节点
+
+![2021-05-25_153402](https://raw.githubusercontent.com/Sono-J/images-bed/main/blog/2021-05-25_153402.png)
+
+#### 4、找出最短路径
+
+![2021-05-25_153407](https://raw.githubusercontent.com/Sono-J/images-bed/main/blog/2021-05-25_153407.png)
+
+#### 5、找出所有满足条件的叶子节点
+
+![2021-05-25_153411](https://raw.githubusercontent.com/Sono-J/images-bed/main/blog/2021-05-25_153411.png)
+
+#### 6、找出所有满足条件的路径
+
+![2021-05-25_153418](https://raw.githubusercontent.com/Sono-J/images-bed/main/blog/2021-05-25_153418.png)
+
+#### 7、找出所有满足条件的路径
+
+![2021-05-25_153423](https://raw.githubusercontent.com/Sono-J/images-bed/main/blog/2021-05-25_153423.png)
+
+### 实现代码
+
+```js
+const root = {
+    val: 1,
+    children: [
+        {
+            val: 2,
+            children: [
+                {
+                    val: 5,
+                    children: []
+                },
+                {
+                    val: 6,
+                    children: []
+                }
+            ]
+        },
+        {
+            val: 3,
+            children: [
+                {
+                    val: 7,
+                    children: []
+                },
+                {
+                    val: 8,
+                    children: []
+                }
+            ]
+        },
+        {
+            val: 4,
+            children: []
+        }
+    ]
+}
+
+// 深度优先搜索
+function dfs(root, target, path, res) {
+    if (!root) return
+
+    path.push(root.val)
+    // 满足条件则将路径加入到res中
+    if (root.val === target) {
+        res.push(path.slice())
+    }
+    // 遍历当前节点的所有子节点
+    for (const child of root.children) {
+        dfs(child, target, path, res)
+    }
+    // 回溯
+    path.pop()
+}
+
+const pathSum = (root, targetSum) => {
+    const res = []
+    dfs(root, targetSum, [], res)
+    return res
+}
+
+console.log(pathSum(root, 10))
+```
+
+### 题目
+
+- [113. 路径总和 II](https://leetcode-cn.com/problems/path-sum-ii/)
+- [257. 二叉树的所有路径](https://leetcode-cn.com/problems/binary-tree-paths/)
+- [112. 路径总和](https://leetcode-cn.com/problems/path-sum/)
+- [111. 二叉树的最小深度](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/)
+- [110. 平衡二叉树](https://leetcode-cn.com/problems/balanced-binary-tree/)
+- [104. 二叉树的最大深度](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)
+
+### 参考
+
+- [深度优先搜索（DFS）与广度优先搜索（BFS）](https://zhuanlan.zhihu.com/p/41334483)
+- [113. 路径总和 II](https://leetcode-cn.com/problems/path-sum-ii/solution/113-lu-jing-zong-he-ii-dfs-by-jyd/)
+- [112. 路径总和](https://leetcode-cn.com/problems/path-sum/solution/112-lu-jing-zong-he-by-jyd/)
+- [111. 二叉树的最小深度](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/solution/111-er-cha-shu-de-zui-xiao-shen-du-by-jyd/)
+- [110. 平衡二叉树](https://leetcode-cn.com/problems/balanced-binary-tree/solution/110-ping-heng-er-cha-shu-by-jyd/)
+- [104. 二叉树的最大深度](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/solution/104-er-cha-shu-de-zui-da-shen-du-by-jyd/)
+- [110. 平衡二叉树](https://leetcode-cn.com/problems/balanced-binary-tree/solution/110-ping-heng-er-cha-shu-by-jyd/)
+- [113. 路径总和 II](https://leetcode-cn.com/problems/path-sum-ii/solution/113-lu-jing-zong-he-ii-dfs-by-jyd/)
+- [112. 路径总和](https://leetcode-cn.com/problems/path-sum/solution/112-lu-jing-zong-he-by-jyd/)
+- [111. 二叉树的最小深度](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/solution/111-er-cha-shu-de-zui-xiao-shen-du-by-jyd/)
+- [110. 平衡二叉树](https://leetcode-cn.com/problems/balanced-binary-tree/solution/110-ping-heng-er-cha-shu-by-jyd/)
+- [104. 二叉树的最大深度](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/solution/104-er-cha-shu-de-zui-da-shen-du-by-jyd/)
+- [110. 平衡二叉树](https://leetcode-cn.com/problems/balanced-binary-tree/solution/110-ping-heng-er-cha-shu-by-jyd/)
+- [113. 路径总和 II](https://leetcode-cn.com/problems/path-

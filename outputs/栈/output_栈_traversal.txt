@@ -1,0 +1,109 @@
+### 栈的遍历
+
+栈的遍历，也叫做栈的输出，通常是从栈顶到栈底，从后往前输出
+
+### 栈的操作
+
+**入栈**
+
+```js
+push(item) {
+  // 将元素压入栈
+}
+```
+
+**出栈**
+
+```js
+pop() {
+  // 移除栈顶的元素，并返回该元素
+}
+```
+
+**查看栈顶元素**
+
+```js
+peek() {
+  // 返回栈顶的元素，不对栈做任何修改（该方法不会移除栈顶的元素，仅仅返回它）
+}
+```
+
+**isEmpty**
+
+```js
+isEmpty() {
+  // 如果栈里没有任何元素就返回 true，否则返回 false
+}
+```
+
+**getBuffer**
+
+```js
+getBuffer() {
+  // 返回一个包含栈中所有元素的数组
+}
+```
+
+### 伪代码
+
+#### 入栈
+
+```js
+push(element) {
+  items.push(element)
+}
+```
+
+#### 出栈
+
+```js
+pop() {
+  return items.pop()
+}
+```
+
+#### 查看栈顶元素
+
+```js
+peek() {
+  return items[items.length - 1]
+}
+```
+
+#### 判断栈是否为空
+
+```js
+isEmpty() {
+  return items.length === 0
+}
+```
+
+#### 获取栈中所有元素
+
+```js
+getBuffer() {
+  return items.slice()
+}
+```
+
+### 流程图
+
+#### 入栈
+
+![入栈](https://raw.githubusercontent.com/heptaluan/blog-backups/master/cdn/js/16-05.png)
+
+#### 出栈
+
+![出栈](https://raw.githubusercontent.com/heptaluan/blog-backups/master/cdn/js/16-06.png)
+
+#### 查看栈顶元素
+
+![查看栈顶元素](https://raw.githubusercontent.com/heptaluan/blog-backups/master/cdn/js/16-07.png)
+
+#### 判断栈是否为空
+
+![判断栈是否为空](https://raw.githubusercontent.com/heptaluan/blog-backups/master/cdn/js/16-08.png)
+
+#### 获取栈中所有元素
+
+![获取栈中所有元素](https://raw.githubusercontent.com/heptaluan/blog-backups/master/cdn/js/16-09.png)

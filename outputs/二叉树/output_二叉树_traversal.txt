@@ -1,0 +1,56 @@
+### 前序遍历
+```java
+void preOrder(TreeNode root){
+  if(root==null){
+    return;
+  }
+  visit(root);
+  preOrder(root.left);
+  preOrder(root.right);
+}
+```
+
+### 中序遍历
+```java
+void inOrder(TreeNode root){
+  if(root==null){
+    return;
+  }
+  inOrder(root.left);
+  visit(root);
+  inOrder(root.right);
+}
+```
+
+### 后序遍历
+```java
+void postOrder(TreeNode root){
+  if(root==null){
+    return;
+  }
+  postOrder(root.left);
+  postOrder(root.right);
+  visit(root);
+}
+```
+
+### 层序遍历
+```java
+void levelOrder(TreeNode root){
+  if(root==null){
+    return;
+  }
+  Queue<TreeNode> queue=new LinkedList<>();
+  queue.add(root);
+  while(!queue.isEmpty()){
+    TreeNode node=queue.poll();
+    visit(node);
+    if(node.left != null) {
+      queue.add(node.left);
+    }
+    if(node.right != null) {
+      queue.add(node.right);
+    }
+  }
+}
+```
